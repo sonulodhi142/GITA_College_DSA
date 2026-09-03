@@ -81,23 +81,116 @@ void Transpose_trip(int trip[max][3], int transpose[max][3]){
     transpose[0][2] = k-1;
 }
 
+// Addition of two triplet representation
+void trip_addition(int a[max][3], int b[max][3], int c[max][3]){
+    int i = 1, j = 1, k = 1;
+
+    // check equality of row and col of triplet a and b
+    if(a[0][0] != b[0][0] && a[0][1] != b[0][1]){
+        printf("\nAddition is not possible\n");
+        return;
+    }
+    
+    // get row and col 
+    int row = a[0][0];
+    int col = a[0][1];
+
+    // store in resultant triplet
+    c[0][0] = row;
+    c[0][1] = col;
+
+    // get number of non Zero values from a and b
+    int valueA = a[0][2];
+    int valueB = b[0][2];
+
+    while(i <= valueA && j <= valueB){
+
+        // check similer row's and col's value
+        if(a[i][0] == b[j][0] && a[i][1] == b[j][1] ){
+            int sum = a[i][2] + b[j][2];
+            if(sum != 0){
+                c[k][0] = a[i][0];
+                c[k][1] = a[i][1];
+                c[k][2] = sum;
+                k++;
+            } 
+            i++;
+            j++;
+        }
+        // check which one row having smaller value
+        else if(a[i][0] < b[j][0] || (a[i][0] == b[j][0] && a[i][1] < b[j][1] )){
+            c[k][0] = a[i][0];
+            c[k][1] = a[i][1];
+            c[k][2] = a[i][2];
+            k++;
+            i++;
+        }
+        else{
+            c[k][0] = b[j][0];
+            c[k][1] = b[j][1];
+            c[k][2] = b[j][2];
+            k++;
+            j++;
+        }
+    }
+    // add rest of the rows to Resultant triplet from a
+    while(i <= valueA){
+        c[k][0] = a[i][0];
+        c[k][1] = a[i][1];
+        c[k][2] = a[i][2];
+        k++;
+        i++;
+    }
+    // add rest of the rows to Resultant triplet from b
+    while(j <= valueB){
+        c[k][0] = b[j][0];
+        c[k][1] = b[j][1];
+        c[k][2] = b[j][2];
+        k++;
+        j++;
+    }
+    // add final non Zero values
+    c[0][2] = k-1;
+}
+
 
 int main(){
     int sparse_matrix[max][max], row, col;
+
+    int A[max][max], B[max][max];
+    int a[max][3], b[max][3], c[max][3];
 
     printf("Enter number of rows :");
     scanf("%d", &row);
     printf("Enter number of cols :");
     scanf("%d", &col);
 
-    create_sparse(sparse_matrix, row, col);
-    Display_matrix(sparse_matrix, row, col);
+    printf("Enter value for A : \n");
+    create_sparse(A, row, col);
+    printf("Enter value for B : \n");
+    create_sparse(B, row, col);
 
-    int trip_rep[max][3];
-    Triplet_rep(sparse_matrix, trip_rep, row, col);
-    Display_trip_rep(trip_rep);
+    Display_matrix(A, row, col);
+    Display_matrix(B, row, col);
 
-    int transpose[max][3];
-    Transpose_trip(trip_rep, transpose);
-    Display_trip_rep(transpose);
+    Triplet_rep(A, a, row, col);
+    Triplet_rep(B, b, row, col);
+
+    Display_trip_rep(a);
+    Display_trip_rep(b);
+
+    trip_addition(a, b, c);
+
+    Display_trip_rep(c);
+
+    // create_sparse(sparse_matrix, row, col);
+    // Display_matrix(sparse_matrix, row, col);
+
+    // int trip_rep[max][3];
+    // Triplet_rep(sparse_matrix, trip_rep, row, col);
+    // Display_trip_rep(trip_rep);
+
+    // int transpose[max][3];
+    // Transpose_trip(trip_rep, transpose);
+    // Display_trip_rep(transpose);
 }
