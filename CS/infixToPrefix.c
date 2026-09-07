@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<ctype.h>
+#include<string.h>
 #define max 20
 
 char stack[max];
@@ -7,7 +8,20 @@ int top = -1;
 
 // reverse string
 void Reverse_str(char exp[]){
-    
+    int size = strlen(exp);
+    for(int i = 0; i < size/2; i++){
+        char temp = exp[i];
+        exp[i] = exp[size-1-i];
+        exp[size-1-i] = temp;
+    }
+    for(int i = 0; i<size; i++){
+        if(exp[i] == '('){
+            exp[i] = ')';
+        }
+        else if(exp[i] == ')'){
+            exp[i] = '(';
+        }
+    }
 }
 // function to get the precedence of the operator
 int precedence(char ch){
@@ -74,7 +88,9 @@ int main(){
     printf("Enter infix expression : ");
     scanf("%s", infix); // get infix expression from the user
 
+    Reverse_str(infix); // reverse infix expression
     infix_to_postfix(infix, postfix); // function call
+    Reverse_str(postfix); // reverse postfix expression
 
-    printf("postfix = %s", postfix); // display postfix expression
+    printf("prefix = %s", postfix); // display postfix expression
 }
