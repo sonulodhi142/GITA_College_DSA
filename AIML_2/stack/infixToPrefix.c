@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<ctype.h>
+#include<string.h>
 #define max 20
 
 char stack[max];
@@ -56,12 +57,35 @@ void infix_to_postfix(char infix[], char postfix[]){
     postfix[j] = '\0';
 }
 
+// fucntion to reverse expression
+void Reverse_exp(char exp[]){
+    int size = strlen(exp);
+
+    for(int i = 0; i < size/2; i++){
+        char temp = exp[i];
+        exp[i] = exp[size-1-i];
+        exp[size-1-i] = temp;
+    }
+
+    for(int i = 0; i<size; i++){
+        if(exp[i] == '('){
+            exp[i] = ')';
+        }
+        else if (exp[i] == ')'){
+            exp[i] = '(';
+        }
+    }
+}
+
 int main(){
     char infix[max], postfix[max];
     printf("Enter infix expression : ");
     scanf("%s", infix);
+    Reverse_exp(infix); // reverse infix expression
 
-    infix_to_postfix(infix, postfix);
+    infix_to_postfix(infix, postfix); // convert reverse expresion to postfix
+    
+    Reverse_exp(postfix); // reverse postfix expression
 
-    printf("Postfix expression : %s\n", postfix);
+    printf("prefix expression : %s\n", postfix);
 }
