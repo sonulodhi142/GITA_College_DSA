@@ -51,7 +51,7 @@ void insertFront(int n){
             front--;
         }
         d_queue[front] = n;
-        printf("\n%d inseted at front\n");
+        printf("\n%d inseted at front\n", n);
     }
 }
 
@@ -114,12 +114,59 @@ void display(){
         printf("\n");
     }
 }
+// function to access front element from the queue
+void peek(){
+    if(isEmpty()){
+        printf("\nQueue is underflow\n");
+    }
+    else{
+        printf("\nPeek = %d\n", d_queue[front]);
+    }
+}
 
 int main(){
-    insertFront(8);
-    insertRear(9);
-    insertFront(0);
-    deleteRear();
-    deleteFront();
-    display();
+    int option, value;
+    while(1){
+        printf("\n======= Double End Queue Operations ========\n\n");
+        printf("1. insert front.\n");
+        printf("2. insert rear.\n");
+        printf("3. delete front.\n");
+        printf("4. delete rear.\n");
+        printf("5. peek\n");
+        printf("6. display.\n");
+        printf("7. exit program.\n");
+
+        printf("\nEnter option : ");
+        scanf("%d", &option);
+
+        switch(option){
+            case 1:
+                printf("Enter value to insert front : ");
+                scanf("%d", &value);
+                insertFront(value);
+                break;
+            case 2:
+                printf("Enter value to insert rear : ");
+                scanf("%d", &value);
+                insertRear(value);
+                break;
+            case 3:
+                deleteFront();
+                break;
+            case 4:
+                deleteRear();
+                break;
+            case 5:
+                peek();
+                break;
+            case 6:
+                display();
+                break;
+            case 7:
+                printf("\nprogram terminated successfully...\n");
+                return 0;
+            default: 
+                printf("\nEnter correct optoin.\n");
+        }
+    }
 }
