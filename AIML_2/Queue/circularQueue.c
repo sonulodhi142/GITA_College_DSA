@@ -58,3 +58,23 @@ void peek(){
         printf("\nPeek = %d\n", c_queue[front]);
     }
 }
+
+// function to display all element of queue
+void display(){
+    if(isEmpty()){
+        printf("\nQueue is underflow\n");
+    }
+    else{
+        printf("\nQueue : front -> ");
+        int i = front;
+        while(1){
+            printf("%d  ", c_queue[i]);
+
+            if(i == rear){
+                break;
+            }
+            i = (i+1)%max;
+        }
+        printf("-> rear\n");
+    }
+}
