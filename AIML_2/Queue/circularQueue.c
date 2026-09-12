@@ -80,10 +80,30 @@ void display(){
 }
 
 int main(){
-    enqueue(4);
-    enqueue(4);
-    enqueue(4);
-    enqueue(4);
-    enqueue(4);
-    display();
+    int option, value;
+    
+    while(1){
+        printf("\n========= Circular Queue Operations ============\n\n");
+        printf("1. enqueue.\n");
+        printf("2. dequeue.\n");
+        printf("3. peek.\n");
+        printf("4. display.\n");
+        printf("5. exit program.\n");
+
+        printf("\nEnter option : ");
+        scanf("%d", &option);
+
+        switch(option){
+            case 1:
+                printf("Enter value : ");
+                scanf("%d", &value);
+                enqueue(value);
+                break;
+            case 2: dequeue(); break;
+            case 3: peek(); break;
+            case 4: display(); break;
+            case 5: printf("\nprogram terminated.\n"); return 0;
+            default: printf("\nInvailed option.\n");
+        }
+    }
 }
