@@ -3,7 +3,7 @@
 
 int c_queue[max];
 int front = -1;
-int rear = -2;
+int rear = -1;
 
 // function to check queue is empty or not
 int isEmpty(){
@@ -12,7 +12,7 @@ int isEmpty(){
 
 // function to check queue is full or not
 int isFull(){
-    return (front + 1) % max == rear;
+    return (rear + 1) % max == front;
 }
 
 // function to insert element 
@@ -77,4 +77,13 @@ void display(){
         }
         printf("-> rear\n");
     }
+}
+
+int main(){
+    enqueue(4);
+    enqueue(4);
+    enqueue(4);
+    enqueue(4);
+    enqueue(4);
+    display();
 }
