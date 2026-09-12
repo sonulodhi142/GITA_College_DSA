@@ -48,3 +48,13 @@ void dequeue(){
         printf("\n%d deleted\n", x);
     }
 }
+
+// function to access peek element
+void peek(){
+    if(isEmpty()){
+        printf("\nQueue is overflow\n");
+    }
+    else{
+        printf("\nPeek = %d\n", c_queue[front]);
+    }
+}
