@@ -6,3 +6,105 @@ int front = -1;
 int rear = -1;
 
 // function to check queue is empty or not
+int isEmpty(){
+    return front == -1;
+}
+
+// function to check queue is full or not
+int isFull(){
+    return (rear+1)%max == front;
+}
+
+// function to insert rear
+void enqueue(int n){
+    if(isFull()){
+        printf("\nQueue overflow\n");
+    }
+    else{
+        if(isEmpty()){
+            front = rear = 0;
+        }
+        else{
+            rear = (rear+1)%max;
+        }
+        c_queue[rear] = n;
+        printf("\n%d inserted\n", n);
+    }
+}
+
+// function to delete front
+void dequeue(){
+    if(isEmpty()){
+        printf("\nQueue underflow\n");
+    }
+    else{
+        int x = c_queue[front];
+        if(front == rear){
+            front = rear = -1;
+        }
+        else{
+            front = (front+1)%max;
+        }
+        printf("\n%d deleted\n", x);
+    }
+}
+
+// function to access peek element
+void peek(){
+    if(isEmpty()){
+        printf("\nQueue underflow\n");
+    }
+    else{
+        printf("\nPeek = %d\n", c_queue[front]);
+    }
+}
+
+// function to display all element of queue
+void display(){
+    if(isEmpty()){
+        printf("\nQueue underflow\n");
+    }
+    else{
+        int i = front;
+        printf("\nQueue : front -> ");
+        while(1){
+            printf("%d  ", c_queue[i]);
+            
+            if(i == rear){
+                break;
+            }
+            i = (i+1)%max;
+        }
+        printf("-> rear");
+    }
+}
+
+
+int main(){
+    int option, value;
+    while (1)
+    {
+        printf("\n=========== Circular Queue Operations ===========\n\n");
+        printf("1. enqueue.\n");
+        printf("2. dequeue.\n");
+        printf("3. peek.\n");
+        printf("4. display.\n");
+        printf("5. exit.\n");
+        printf("\nEnter option : ");
+        scanf("%d", &option);
+
+        switch(option){
+            case 1:
+                printf("\nEnter value : ");
+                scanf("%d", &value);
+                enqueue(value);
+                break;
+            case 2: dequeue(); break;
+            case 3: peek(); break;
+            case 4: display(); break;
+            case 5: printf("\nprogram terminated\n"); return 0;
+            default: printf("\nInvailed option\n"); break; 
+        }
+    }
+    
+}
