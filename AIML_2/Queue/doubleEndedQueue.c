@@ -1,0 +1,156 @@
+#include<stdio.h>
+#define max 5
+
+int c_queue[max];
+int front = -1;
+int rear = -1;
+
+// function to check queue is empty or not
+int isEmpty(){
+    return front == -1;
+}
+
+// function to check queue is full or not
+int isFull(){
+    return (rear + 1) % max == front;
+}
+
+// function to insert element 
+void enqueue(int n){
+    if(isFull()){
+        printf("\nQueue is overflow\n");
+    }
+    else{
+        if(isEmpty()){
+            front = rear = 0;
+        }
+        else{
+            rear = (rear + 1)%max;
+        }
+        c_queue[rear] = n;
+        printf("\n%d inserted\n", n);
+    }
+}
+
+// function to delete front
+void dequeue(){
+    if(isEmpty()){
+        printf("\nQueue underflow\n");
+    }
+    else{
+        int x = c_queue[front];
+        if(front == rear){
+            front = rear = -1;
+        }
+        else{
+            front = (front + 1)%max;
+        }
+        printf("\n%d deleted\n", x);
+    }
+}
+
+// function to delete rear
+void deleteRear(){
+    if(isEmpty()){
+        printf("\nQueue underflow\n");
+    }
+    else{
+        int n = c_queue[rear];
+        if(rear == 0){
+            rear = max-1;
+        }
+        else if(rear == front){
+            rear = front = -1;
+        }
+        else{
+            rear--;
+        }
+        printf("\n%d deleted from rear\n", n);
+    }
+}
+
+void insertFront(int n){
+    if(isFull()){
+        printf("\nQueue overflow\n");
+    }
+    else{
+        if(isEmpty()){
+            front = rear = 0;
+        }
+        else if(front == 0){
+            front = max-1;
+        }
+        else{
+            front--;
+        }
+        c_queue[front] = n;
+        printf("\n%d inseted at front\n", n);
+    }
+}
+
+// function to access peek element
+void peek(){
+    if(isEmpty()){
+        printf("\nQueue is overflow\n");
+    }
+    else{
+        printf("\nPeek = %d\n", c_queue[front]);
+    }
+}
+
+// function to display all element of queue
+void display(){
+    if(isEmpty()){
+        printf("\nQueue is underflow\n");
+    }
+    else{
+        printf("\nQueue : front -> ");
+        int i = front;
+        while(1){
+            printf("%d  ", c_queue[i]);
+
+            if(i == rear){
+                break;
+            }
+            i = (i+1)%max;
+        }
+        printf("-> rear\n");
+    }
+}
+
+int main(){
+    int option, value;
+    
+    while(1){
+        printf("\n========= Circular Queue Operations ============\n\n");
+        printf("1. enqueue.\n");
+        printf("2. dequeue.\n");
+        printf("3. insertfront.\n");
+        printf("4. deleteRear.\n");
+        printf("5. peek.\n");
+        printf("6. display.\n");
+        printf("7. exit program.\n");
+
+        printf("\nEnter option : ");
+        scanf("%d", &option);
+
+        switch(option){
+            case 1:
+                printf("Enter value : ");
+                scanf("%d", &value);
+                enqueue(value);
+                break;
+            case 2: dequeue(); break;
+            case 3:
+                printf("Enter value : ");
+                scanf("%d", &value);
+                insertFront(value);
+                break;
+            case 4: deleteRear(); break;
+            case 5: peek(); break;
+            case 6: display(); break;
+            case 7: printf("\nprogram terminated.\n"); return 0;
+            default: printf("\nInvailed option.\n");
+        }
+    }
+}
