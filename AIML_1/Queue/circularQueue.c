@@ -12,7 +12,7 @@ int isEmtpy(){
 
 // function to check queue is full or not
 int isFull(){
-    return rear == max-1;
+    return (rear+1)%max == front;
 }
 
 // function to insert rear
@@ -24,7 +24,7 @@ void enqueue(int value){
         if(isEmtpy()){
             front = 0;
         }
-        rear++;
+        rear = (rear+1)%max;
         queue[rear] = value;
         printf("\n%d inserted\n", value);
     }
@@ -40,7 +40,7 @@ void dequeue(){
             front = rear = -1;
         }
         else{
-            front++;
+            front = (front+1)%max;
         }
         printf("\n%d deleted\n", x);
     }
@@ -63,8 +63,14 @@ void display(){
     }
     else{
         printf("\n Queue : front -> ");
-        for(int i =front; i<= rear; i++ ){
+        int i = front;
+        while(1){
             printf("[%d]%d  ",i, queue[i]);
+
+            if(i == rear){
+                break;
+            }
+            i = (i+1)%max;
         }
         printf("-> rear\n");
     }
