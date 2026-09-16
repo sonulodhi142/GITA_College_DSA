@@ -16,7 +16,7 @@ int isFull(){
 }
 
 // function to insert rear
-void enqueue(int n){
+void insertRear(int n){
     if(isFull()){
         printf("\nQueue overflow\n");
     }
@@ -31,9 +31,29 @@ void enqueue(int n){
         printf("\n%d inserted\n", n);
     }
 }
+// function to delete Rear
+void deleteRear(){
+    if(isEmpty()){
+        printf("\nQueue underflow\n");
+        return;
+    }
+    else{
+        int x = d_queue[rear];
+        if(rear == 0){
+            rear = max-1;
+        }
+        else if(rear == front){
+            front = rear = -1;
+        }
+        else{
+            rear--;
+        }
+        printf("\n%d deleted from rear\n", x);
+    }
+}
 
 // function to delete front
-void dequeue(){
+void deleteFront(){
     if(isEmpty()){
         printf("\nQueue underflow\n");
     }
@@ -46,6 +66,27 @@ void dequeue(){
             front = (front + 1)%max;
         }
         printf("\n%d delete\n", x);
+    }
+}
+
+//function to insert front
+void insertFront(int value){
+    if(isFull()){
+        printf("\nQueue overflow\n");
+        return;
+    }
+    else{
+        if(isEmpty()){
+            front = rear = 0;
+        }
+        else if(front == 0){
+            front = max-1;
+        }
+        else{
+            front--;
+        }
+        d_queue[front] = value;
+        printf("\n%d inserted at front\n", value);
     }
 }
 
@@ -79,34 +120,20 @@ void display(){
     }
 }
 
-// function to delete rear
-void deleteRear(){
-    if(isEmpty()){
-        printf("\nQueue underflow\n");
-    }
-    else{
-        int x = d_queue[rear];
-        if(rear == front){
-            front = rear = -1;
-        }
-        else{
-            rear = (max + rear - 1) % max;
-        }
-        printf("\n%d deleted from rear\n", x);
-    }
-}
+
 
 int main(){
     int option, value;
 
     while(1){
         printf("\n====== Queue Operations ======\n\n");
-        printf("1. enqueue.\n");
-        printf("2. dequeue.\n");
-        printf("3. peek.\n");
-        printf("4. display.\n");
-        printf("5. exit.\n");
-        printf("5. delete Rear.\n");
+        printf("1. insert front.\n");
+        printf("2. insert rear.\n");
+        printf("3. delete front.\n");
+        printf("4. delete rear.\n");
+        printf("5. peek.\n");
+        printf("6. display.\n");
+        printf("7. exit.\n");
 
         printf("\nEnter option : ");
         scanf("%d", &option);
@@ -115,13 +142,18 @@ int main(){
             case 1:
                 printf("Enter value : ");
                 scanf("%d", &value);
-                enqueue(value);
+                insertFront(value);
                 break;
-            case 2: dequeue(); break;
-            case 3: peek(); break;
-            case 4: display(); break;
-            case 5: printf("\nprogram terminated\n"); return 0;
-            case 6: deleteRear(); break;
+            case 2:
+                printf("Enter value : ");
+                scanf("%d", &value);
+                insertRear(value);
+                break;
+            case 3: deleteFront(); break;
+            case 4: deleteRear(); break;
+            case 5: peek(); break;
+            case 6: display(); break;
+            case 7: printf("\nprogram terminated\n"); return 0;
             default: printf("\nInvailed option\n");
         }
     }
