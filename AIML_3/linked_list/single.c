@@ -188,7 +188,8 @@ int main(){
             break;
         case 2:
             printf("Enter value: ");
-            scanf("%d", &value);
+            scanf("%d", &value);         // github.com/sonulodhi142/GITA_College_DSA
+
             insert_at_end(value);
             break;
         case 3:

@@ -1,13 +1,16 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+// create node structure
 struct node{
     int data;
     struct node *next;
 };
 
-struct node *head;
+// global pointer
+struct node *head = NULL;
 
+// function to create node
 struct node *createNode(int data){
     struct node *newNode = (struct node*)malloc(sizeof(struct node));
 
@@ -16,6 +19,8 @@ struct node *createNode(int data){
 
     return newNode;
 }
+
+
 
 void display(){
     if(head == NULL){
@@ -31,7 +36,8 @@ void display(){
     printf("\n");
 }
 
-void insertBegin(int data){
+// function to insert at begin
+void insert_at_begin(int data){
     struct node *newNode = createNode(data);
 
     if(head == NULL){
@@ -49,7 +55,8 @@ void insertBegin(int data){
     temp->next = head;
 }
 
-void insertEnd(int data){
+// function to insert at end
+void insert_at_end(int data){
     struct node *newNode = createNode(data);
 
     if(head == NULL){
