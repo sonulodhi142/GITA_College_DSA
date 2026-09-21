@@ -162,10 +162,64 @@ void search(int target){
 }
 
 int main(){
-    insert_at_begin(50);
-    insert_at_begin(70);
-    insert_at_begin(80);
-    insert_at_begin(90);
-    display();
-    return 0;
+  int option, value, pos;
+  while(1){
+    printf("\n==========linked list operations======\n\n");
+    printf("1. insert at begin.\n");
+    printf("2. insert at end\n");
+    printf("3. insert at position.\n");
+    printf("4. delete from begin.\n");
+    printf("5. delete from end\n");
+    printf("6. delete from position\n");
+    printf("7. search element\n");
+    printf("8. display\n");
+    printf("9. exit programe\n");
+
+    printf("\nEnter option : ");
+    scanf("%d", &option);
+
+    switch(option){
+        case 1:
+            printf("Enter value: ");
+            scanf("%d", &value);
+            insert_at_begin(value);
+            break;
+        case 2:
+            printf("Enter value: ");
+            scanf("%d", &value);         
+            insert_at_end(value);
+            break;
+        case 3:
+            printf("Enter Position to insert: ");
+            scanf("%d", &pos);
+            printf("Enter value: ");
+            scanf("%d", &value);
+            insert_at_position(value, pos);
+            break;
+        case 4:
+            delete_from_begin();
+            break;
+        case 5:
+            delete_from_end();
+            break;
+        case 6:
+            printf("Enter Position to delete: ");
+            scanf("%d", &pos);
+            delete_from_position(pos);
+            break;
+        case 7:
+            printf("Enter value to search : ");
+            scanf("%d", &value);
+            search(value);
+            break;
+        case 8:
+            display();
+            break;
+        case 9:
+            printf("\nProgram terminated successfully\n");
+            return 0;
+        default:
+            printf("\ninvailed option\n");
+    }
+  }
 }
