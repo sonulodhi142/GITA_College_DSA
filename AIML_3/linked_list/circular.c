@@ -20,22 +20,6 @@ struct node *createNode(int data){
     return newNode;
 }
 
-
-
-void display(){
-    if(head == NULL){
-        printf("\nList is empty\n");
-        return;
-    }
-    struct node *temp = head;
-    printf("\nList : ");
-    do{
-        printf("%d  ", temp->data);
-        temp = temp->next;
-    }while(temp != head);
-    printf("\n");
-}
-
 // function to insert at begin
 void insert_at_begin(int data){
     struct node *newNode = createNode(data);
@@ -73,62 +57,131 @@ void insert_at_end(int data){
     newNode->next = head;
 }
 
-void insertPosition(int data, int pos){
-    struct node *newNode = createNode(data);
-
-    if(pos == 1){
-        head = newNode;
-        newNode->next = head;
-    }
-
-    struct node *temp = head;
-    int i = 1;
-    while (i < pos-1){
-        temp = temp->next;
-        i++;
-    }
-
-    if(temp == NULL){
-        printf("\ninvailed position\n");
+// function to delete head
+void delete_from_begin(){
+    if(head == NULL){
+        printf("\nList is empty\n");
         return;
     }
-
-    newNode->next = temp->next;
-    temp->next = newNode;
-}
-
-void deleteBegin(){
     struct node *temp = head;
-
+    struct node *delete = head;
     if (head->next == temp){
         head = NULL;
-        printf("\nhead deleted\n");
-        return;
     }
-    while(temp->next != head){
-        temp = temp->next;
+    else{
+        while(temp->next != head){
+            temp = temp->next;
+        }
+        head = head->next;
+        temp->next = head;
     }
-    head = head->next;
-    temp->next = head;
+    printf("\n%d deleted from head\n", delete->data);
+    free(delete);
 }
 
-void deleteEnd(){
+// function to delete end
+void delete_from_end(){
     struct node *temp = head;
-
-    if(head->next == temp){
-        head = NULL;
+    struct node *delete = head; 
+    if(head == NULL){
+        printf("\nList is empty");
         return;
     }
-
-    while(temp->next->next != head){
-        temp = temp->next;
+    if(head->next == head){
+        head = NULL;
     }
-
-    temp->next = head;
-    
-
+    else{
+        while (temp->next->next != head){
+            temp = temp->next;
+        }
+        delete = temp->next;
+        temp->next = head;
+    }
+    printf("\n%d deleted from end\n", delete->data);
+    free(delete);
 }
+
+// function to display all nodes
+void display(){
+    if(head == NULL){
+        printf("\nList is empty\n");
+        return;
+    }
+    struct node *temp = head;
+    printf("\nList : ");
+    do{
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }while(temp != head);
+    printf("head\n");
+}
+
+// function to display all nodes
+void search(int target){
+    if(head == NULL){
+        printf("\nList is empty\n");
+        return;
+    }
+    struct node *temp = head;
+    int i = 1;
+    do{
+        if(temp->data == target){
+            printf("\n%d found at %d position\n", target, i);
+            return;
+        }
+        i++;
+        temp = temp->next;
+    }while(temp != head);
+    printf("\n%d is not found\n", target);
+}
+
 
 int main(){
+  int option, value, pos;
+  while(1){
+    printf("\n==== Circular linked list =======\n\n");
+    printf("1. insert at begin.\n");
+    printf("2. insert at end\n");
+    printf("3. delete from begin.\n");
+    printf("4. delete from end\n");
+    printf("5. search element\n");
+    printf("6. display\n");
+    printf("7. exit programe\n");
 
+    printf("\nEnter option : ");
+    scanf("%d", &option);
+
+    switch(option){
+        case 1:
+            printf("Enter value: ");
+            scanf("%d", &value);
+            insert_at_begin(value);
+            break;
+        case 2:
+            printf("Enter value: ");
+            scanf("%d", &value);         // github.com/sonulodhi142/GITA_College_DSA
+
+            insert_at_end(value);
+            break;
+        case 3:
+            delete_from_begin();
+            break;
+        case 4:
+            delete_from_end();
+            break;
+        case 5:
+            printf("Enter value to search : ");
+            scanf("%d", &value);
+            search(value);
+            break;
+        case 6:
+            display();
+            break;
+        case 7:
+            printf("\nProgram terminated successfully\n");
+            return 0;
+        default:
+            printf("\ninvailed option\n");
+    }
+  }
 }
