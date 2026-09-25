@@ -72,6 +72,24 @@ void delete_from_begin(){
     free(temp);
 }
 
+// function to delete from end
+void delete_from_end(){
+    if(head == NULL){
+        printf("\nList is empty\n");
+        return;
+    }
+    struct node *temp = tail;
+    tail = tail->prev;
+    if(tail != NULL){
+        tail->next = NULL;
+    }
+    else{
+        head = NULL;
+    }
+    printf("\n%d deleted from begin\n", temp->data);
+    free(temp);
+}
+
 // function to display all node's data
 void display(){
     if(head == NULL){
@@ -95,11 +113,72 @@ void display(){
     printf("head\n");
 }
 
+// function to search element
+void search(int target){
+    if(head == NULL){
+        printf("\nlist is empty\n");
+        return;
+    }
+    struct node *temp = head;
+    int i = 1;
+    while(temp != NULL){
+        if(temp->data == target){
+            printf("\n%d found at %d position\n", target, i);
+            return;
+        }
+        i++;
+        temp = temp->next;
+    }
+    printf("\nelement is not found\n");
+}
+
+
 int main(){
-    insert_at_begin(44);
-    insert_at_begin(55);
-    insert_at_end(78);
-    insert_at_end(33);
-    display();
-    return 0;
+  int option, value, pos;
+  while(1){
+    printf("\n==== Doubly linked list =======\n\n");
+    printf("1. insert at begin.\n");
+    printf("2. insert at end\n");
+    printf("3. delete from begin.\n");
+    printf("4. delete from end\n");
+    printf("5. search element\n");
+    printf("6. display\n");
+    printf("7. exit programe\n");
+
+    printf("\nEnter option : ");
+    scanf("%d", &option);
+
+    switch(option){
+        case 1:
+            printf("Enter value: ");
+            scanf("%d", &value);
+            insert_at_begin(value);
+            break;
+        case 2:
+            printf("Enter value: ");
+            scanf("%d", &value);         
+
+            insert_at_end(value);
+            break;
+        case 3:
+            delete_from_begin();
+            break;
+        case 4:
+            delete_from_end();
+            break;
+        case 5:
+            printf("Enter value to search : ");
+            scanf("%d", &value);
+            search(value);
+            break;
+        case 6:
+            display();
+            break;
+        case 7:
+            printf("\nProgram terminated successfully\n");
+            return 0;
+        default:
+            printf("\ninvailed option\n");
+    }
+  }
 }
