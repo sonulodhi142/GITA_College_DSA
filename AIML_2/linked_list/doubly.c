@@ -1,20 +1,23 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-// single linked list node
+// node structure
 struct node{
     int data;
     struct node *next;
+    struct node *prev;
 };
 
-struct node *head = NULL;
+// global pointers
+struct node *head;
+struct node *tail;
 
-// function to create node
 struct node *createNode(int data){
     struct node *newNode = (struct node*)malloc(sizeof(struct node));
 
     newNode->data = data;
     newNode->next = NULL;
+    newNode->prev = NULL;
 
     return newNode;
 }
@@ -23,107 +26,110 @@ struct node *createNode(int data){
 void insert_at_begin(int data){
     struct node *newNode = createNode(data);
 
-    if(head == NULL){
-        head = newNode;
-        newNode->next = head;
+    newNode->next = head;
+
+    if(head != NULL){
+        head->prev = newNode; 
     }
     else{
-        struct node *temp = head;
-        while(temp->next != head){
-            temp = temp->next;
-        }
-        newNode->next = head;
-        head = newNode;
-        temp->next = head;
+        tail = newNode;
     }
+
+    head = newNode;
     printf("\n%d inserted at begin\n", data);
 }
 
-// function to display all elements
-void display(){
-    if(head == NULL){
-        printf("\nList is empty\n");
+// function to insert at end
+void insert_at_end(int data){
+    struct node *newNode = createNode(data);
+
+    newNode->prev = tail;
+
+    if(tail != NULL){
+        tail->next = newNode;
     }
     else{
-        struct node *temp = head;
-        printf("\nList : ");
-        do{
-            printf("%d -> ", temp->data);
-            temp = temp->next;
-        }while(temp != head);
-        printf("NULL\n");
+        head = newNode;
     }
+    tail = newNode;
 }
 
-
-// function to delete head
+// function to delete from begin
 void delete_from_begin(){
     if(head == NULL){
         printf("\nList is empty\n");
         return;
     }
     struct node *temp = head;
-    struct node *delete = head;
-    if (head->next == temp){
-        head = NULL;
+    head = head->next;
+    if(head != NULL){
+        head->prev = NULL;
     }
     else{
-        while(temp->next != head){
-            temp = temp->next;
-        }
-        head = head->next;
-        temp->next = head;
+        tail = NULL;
     }
-    printf("\n%d deleted from head\n", delete->data);
-    free(delete);
+    printf("\n%d deleted from begin\n", temp->data);
+    free(temp);
 }
 
-// function to delete end
+// function to delete from end
 void delete_from_end(){
-    struct node *temp = head;
-    struct node *delete = head; 
-    if(head == NULL){
-        printf("\nList is empty");
-        return;
-    }
-    if(head->next == head){
-        head = NULL;
-    }
-    else{
-        while (temp->next->next != head){
-            temp = temp->next;
-        }
-        delete = temp->next;
-        temp->next = head;
-    }
-    printf("\n%d deleted from end\n", delete->data);
-    free(delete);
-}
-
-// function to display all nodes
-void search(int target){
     if(head == NULL){
         printf("\nList is empty\n");
         return;
     }
+    struct node *temp = tail;
+    tail = tail->prev;
+    if(tail != NULL){
+        tail->next = NULL;
+    }
+    else{
+        head = NULL;
+    }
+    printf("\n%d deleted from begin\n", temp->data);
+    free(temp);
+}
+
+// function to display all node's data
+void display(){
+    if(head == NULL){
+        printf("\nlist is empty\n");
+        return;
+    }
+    struct node *temp = head;
+    printf("list (forward) : head -> ");
+    while(temp != NULL){
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("prev\n");
+
+}
+
+// function to search element
+void search(int target){
+    if(head == NULL){
+        printf("\nlist is empty\n");
+        return;
+    }
     struct node *temp = head;
     int i = 1;
-    do{
+    while(temp != NULL){
         if(temp->data == target){
             printf("\n%d found at %d position\n", target, i);
             return;
         }
         i++;
         temp = temp->next;
-    }while(temp != head);
-    printf("\n%d is not found\n", target);
+    }
+    printf("\nelement is not found\n");
 }
 
 
 int main(){
   int option, value, pos;
   while(1){
-    printf("\n==== Circular linked list =======\n\n");
+    printf("\n==== Doubly linked list =======\n\n");
     printf("1. insert at begin.\n");
     printf("2. insert at end\n");
     printf("3. delete from begin.\n");
