@@ -101,6 +101,34 @@ void delete_from_begin(){
     free(deleted);
 }
 
+// function to delete from positon
+void delete_from_position(int pos){
+    if(head == NULL){
+        printf("\nlist is empty\n");
+    }
+    else{
+        if(pos == 1){
+            delete_from_begin();
+            return;
+        }
+        struct node *del = NULL;
+        struct node *temp = head;
+        int i = 1;
+        while(i < pos-1 && temp->next != NULL){
+            temp = temp->next;
+            i++;
+        }
+        if(temp->next == NULL){
+            printf("\nInvailed position\n");
+            return;
+        }
+        del = temp->next;
+        temp->next = del->next;
+        printf("\n%d deleted from %d position\n", del->data, pos);
+        free(del);
+    }
+}
+
 // function to delete from end
 void delete_from_end(){
     if(head == NULL){
@@ -155,6 +183,7 @@ int main(){
     printf("6. display\n");
     printf("7. exit programe\n");
     printf("8. insert at position\n");
+    printf("9. delete from position\n");
 
     printf("\nEnter option : ");
     scanf("%d", &option);
@@ -194,6 +223,11 @@ int main(){
             printf("Enter position : ");
             scanf("%d", &pos);
             insert_at_position(value, pos);
+            break;
+        case 9:
+            printf("Enter position : ");
+            scanf("%d", &pos);
+            delete_from_position(pos);
             break;
         default:
             printf("\ninvailed option\n");

@@ -25,17 +25,14 @@ struct node *createNode(int data){
 // function to insert at begin
 void insert_at_begin(int data){
     struct node *newNode = createNode(data);
-
-    newNode->next = head;
-
-    if(head != NULL){
-        head->prev = newNode; 
+    if(head == NULL){
+        head = tail = newNode; 
     }
     else{
-        tail = newNode;
+        newNode->next = head;
+        head->prev = newNode;
+        head = newNode;
     }
-
-    head = newNode;
     printf("\n%d inserted at begin\n", data);
 }
 
@@ -43,15 +40,15 @@ void insert_at_begin(int data){
 void insert_at_end(int data){
     struct node *newNode = createNode(data);
 
-    newNode->prev = tail;
-
-    if(tail != NULL){
-        tail->next = newNode;
+    if(head == NULL){
+        head = tail = newNode; 
     }
     else{
-        head = newNode;
+        tail->next = newNode;
+        newNode->prev = tail;
+        tail = newNode;
     }
-    tail = newNode;
+    printf("\n%d inseted at tail\n", data);
 }
 
 // function to delete from begin
@@ -61,12 +58,13 @@ void delete_from_begin(){
         return;
     }
     struct node *temp = head;
-    head = head->next;
-    if(head != NULL){
-        head->prev = NULL;
+
+    if(head == tail){
+        head = tail = NULL;
     }
     else{
-        tail = NULL;
+        head = head->next;
+        head->prev = NULL;
     }
     printf("\n%d deleted from begin\n", temp->data);
     free(temp);
@@ -79,14 +77,14 @@ void delete_from_end(){
         return;
     }
     struct node *temp = tail;
-    tail = tail->prev;
-    if(tail != NULL){
-        tail->next = NULL;
+    if(head == tail){
+        head = tail = NULL;
     }
     else{
-        head = NULL;
+        tail = tail->prev;
+        tail->next = NULL;
     }
-    printf("\n%d deleted from begin\n", temp->data);
+    printf("\n%d deleted from end\n", temp->data);
     free(temp);
 }
 
