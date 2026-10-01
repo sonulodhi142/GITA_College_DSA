@@ -23,36 +23,29 @@ struct node *createNode(int data) {
 
 // function to insert at begin
 void insert_at_begin(int data) {
-
     struct node *newNode = createNode(data);
 
     // if list is empty
     if (head == NULL) {
         head = tail = newNode;
-
         // circular connection
         tail->next = head;
     }
     else {
         newNode->next = head;
         head = newNode;
-
         // maintain circular connection
         tail->next = head;
     }
-
     printf("\n%d inserted at begin\n", data);
 }
 
 // function to insert at end
 void insert_at_end(int data) {
-
     struct node *newNode = createNode(data);
-
     // if list is empty
     if (head == NULL) {
         head = tail = newNode;
-
         // circular connection
         tail->next = head;
     }
@@ -61,113 +54,80 @@ void insert_at_end(int data) {
         tail->next = newNode;
         tail = newNode;
     }
-
     printf("\n%d inserted at end\n", data);
 }
 
 // function to display all nodes
 void display() {
-
     if (head == NULL) {
         printf("\nList is empty\n");
         return;
     }
-
     struct node *temp = head;
-
     printf("\nList : head -> ");
-
     do {
         printf("%d -> ", temp->data);
         temp = temp->next;
     } while (temp != head);
-
     printf("head\n");
 }
 
 // function to delete from begin
 void delete_from_begin() {
-
     if (head == NULL) {
         printf("\nList is empty\n");
         return;
     }
-
     struct node *deleted = head;
-
-    // only one node
-    if (head == tail) {
+    if (head == tail) {     // only one node
         head = tail = NULL;
     }
     else {
         head = head->next;
-
-        // maintain circular connection
-        tail->next = head;
+        tail->next = head;  // maintain circular connection
     }
-
     printf("\n%d deleted from begin\n", deleted->data);
-
     free(deleted);
 }
 
 // function to delete from end
 void delete_from_end() {
-
     if (head == NULL) {
         printf("\nList is empty\n");
         return;
     }
-
     struct node *deleted = tail;
-
-    // only one node
-    if (head == tail) {
+    if (head == tail) {        // only one node
         head = tail = NULL;
     }
     else {
-
         struct node *temp = head;
-
-        // find node before tail
-        while (temp->next != tail) {
+        while (temp->next != tail) {   // find node before tail
             temp = temp->next;
         }
-
-        tail = temp;
-
-        // maintain circular connection
+        tail = temp;              // maintain circular connection
         tail->next = head;
     }
-
     printf("\n%d deleted from end\n", deleted->data);
-
     free(deleted);
 }
 
 // function to search
 void search(int target) {
-
     if (head == NULL) {
         printf("\nList is empty\n");
         return;
     }
-
     struct node *temp = head;
     int i = 1;
-
     do {
-
         if (temp->data == target) {
             printf("\n%d found at %d position\n", target, i);
             return;
         }
-
         i++;
         temp = temp->next;
-
     } while (temp != head);
-
     printf("\n%d is not found\n", target);
 }
 
