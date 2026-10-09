@@ -2,6 +2,7 @@
 
 // bubble sort
 void bubble_sort(int arr[], int n){
+
     for(int i = 0; i < n; i++){
 
         for(int j = 0; j < n-i-1; j++){
@@ -15,17 +16,20 @@ void bubble_sort(int arr[], int n){
     }
 }
 
-// function to display array
+// display
 void display(int arr[], int n){
     printf("\nArray : ");
-    for(int i = 0; i < n; i++){
+    for(int i = 0; i<n; i++){
         printf("%d  ", arr[i]);
     }
     printf("\n");
 }
 
+
+
 // selection sort
 void selection_sort(int arr[], int n){
+
     for(int i = 0; i < n-1; i++){
         int min = i;
         for(int j = i+1; j < n; j++){
@@ -33,9 +37,9 @@ void selection_sort(int arr[], int n){
                 min = j;
             }
         }
-        int temp = arr[i];
-        arr[i] = arr[min];
-        arr[min] = temp;
+        int temp = arr[min];
+        arr[min] = arr[i];
+        arr[i] = temp;
     }
 }
 
@@ -54,15 +58,31 @@ void insertion_sort(int arr[], int n){
     }
 }
 
+
 int main(){
-    int arr[] = {3,2,5,1,4,7,0};
+    int arr[] = {3, 4, 5, 6, 9, 7, 2, 5};
     int n = sizeof(arr)/sizeof(arr[0]);
 
-    printf("\nBefore sorting:-");
-    display(arr, n);
-
     insertion_sort(arr, n);
-
-    printf("\nAfter sorting:-");
     display(arr, n);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

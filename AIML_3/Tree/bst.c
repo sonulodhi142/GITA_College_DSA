@@ -45,6 +45,21 @@ void inorder(struct node *root){
     inorder(root->right);
 }
 
+// preorder traversal
+void preorder(struct node *root){
+    if(root == NULL) return;
+    printf("%d  ", root->data);
+    preorder(root->left);
+    preorder(root->right);
+}
+// postorder traversal
+void postorder(struct node *root){
+    if(root == NULL) return;
+    postorder(root->left);
+    postorder(root->right);
+    printf("%d  ", root->data);
+}
+
 // function to search element
 struct node *search(struct node *root, int value){
     if(root == NULL){
@@ -108,5 +123,28 @@ struct node *deleteNode(struct node *root, int value){
 }
 
 int main(){
-   
+   struct node *root = NULL;
+
+   root = insert(root, 50);
+   root = insert(root, 30);
+   root = insert(root, 40);
+   root = insert(root, 70);
+
+   struct node *result = search(root, 40);
+   if(result != NULL){
+    printf("\nvalue found\n");
+   }
+   else{
+    printf("\nvalue not found\n");
+   }
+
+   root = deleteNode(root, 40);
+
+   printf("\n");
+   inorder(root);
+   printf("\n");
+   preorder(root);
+   printf("\n");
+   postorder(root);
+   printf("\n");
 }

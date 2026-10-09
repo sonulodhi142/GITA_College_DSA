@@ -1,5 +1,16 @@
 #include<stdio.h>
 
+// DFS
+void dfs(int arr[10][10], int visited[10], int ver, int start){
+
+    printf("%d  ", start);
+    visited[start] = 1;
+    for(int i = 0; i < ver; i++){
+        if(arr[start][i] == 1 && visited[i] == 0){
+            dfs(arr, visited, ver, i);
+        }
+    }
+}
 
 int main(){
     int vertex, edge, u, v;
@@ -48,5 +59,10 @@ int main(){
                 visited[i] = 1;
             }
         }
+
     }
+    // dfs
+    int visit[10] = {0};
+    printf("\nDFS :-\n");
+    dfs(arr, visit, vertex, start);
  }
